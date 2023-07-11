@@ -1,4 +1,4 @@
-# BigDaddyMarketplace
+# BigDaddyMarketplaceMarketplace
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.bigdaddy-nft.com/bigdaddycore/bigdaddymarketplace.git
+git remote add origin https://gitlab.BigDaddyMarketplace-nft.com/BigDaddyMarketplacecore/BigDaddyMarketplacemarketplace.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.bigdaddy-nft.com/bigdaddycore/bigdaddymarketplace/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.BigDaddyMarketplace-nft.com/BigDaddyMarketplacecore/BigDaddyMarketplacemarketplace/-/settings/integrations)
 
 ## Collaborate with your team
 
