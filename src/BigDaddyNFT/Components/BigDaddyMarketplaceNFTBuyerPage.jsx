@@ -20,14 +20,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
   redirectCreatorAfterAuth
 }) {
 
-  const [collectionName, setCollectionName] = useState("");
-  const [price, setPrice] = useState(0.00);
   const [selectedNft, setSelectedNft] = useState(null);
-  const [selectedSaleNft, setSelectedSaleNft] = useState(null);
-  const [sellPrice, setSellPrice] = useState(0.00);
-  const [isLimitReached, setIsLimitReached] = useState(false);
-  const [limit, setLimit] = useState(0);
-  const [BigDaddyMarketplaceSaleList, setBigDaddyMarketplaceSaleList] = useState({})
   const [BigDaddyMarketplaceNftList, setBigDaddyMarketplaceNftList] = useState([])
 
   useEffect(() => {
@@ -74,8 +67,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
         <button onClick={handleLogOut} className="glow-on-hover logout">Log Out</button>
       </div>
 
-      {hasPersonnalAccess && <button onClick={redirectAfterAuth} className="glow-on-hover logout">Go to my private Website</button>}
-      {isCreator && <button onClick={redirectCreatorAfterAuth} className="glow-on-hover logout">Go to my creator Page</button>}
+      <button onClick={redirectAfterAuth} className="glow-on-hover logout">Go to Marketplace</button>
 
       <h1>{collectionName}</h1>
 
@@ -84,52 +76,51 @@ function BigDaddyMarketplaceNFTBuyerPage({
       <div className={"nft-item selected"}>My personnal NFTs</div>
         {BigDaddyMarketplaceNftList.map(nft => (
           <div
-            key={nft}
-            onClick={() => setSelectedNft(nft)}
+            key={nft.nftId}
+            onClick={() => {
+              setSelectedNft(nft);
+              setIsEditable(!nft.isDeployed);
+            }}
             className={`nft-item ${selectedNft === nft ? "selected" : ""}`}
           >
-            {"#"+nft.toString()+"/"+limit.toString()}
+            {"#"+nft.nftId.toString()}
           </div>
-        ))}
-    </div>
-    {selectedNft && isLimitReached &&(
-          <div className="BigDaddyMarketplace-left-table-footer">
-            <label className="BigDaddyMarketplace-label">
-              Price (in FUSD): <input type="number" value={sellPrice} onChange={e => setSellPrice(e.target.value)} min={0} className="BigDaddyMarketplace-input" style={{width: "100 px"}}/>
-            </label>
-            <button onClick={() => handleSellNFT(selectedNft, sellPrice)} className="glow-on-hover">Sell NFT</button>
-          </div>
-        )}
-        
+        ))}  
+    </div>       
         <div className="BigDaddyMarketplacecolumn">
           <div className="helpCard">
             <img src={nftImagePath} alt="NFT" className="cardContent" />
           </div>
         </div>
-        {isLimitReached && (
         <div className="BigDaddyMarketplacecolumn right">
-        <div className={"nft-item selected"}>Buy NFT</div>
-          {isLimitReached &&
-            Object.entries(BigDaddyMarketplaceSaleList).map(([id, price]) => (
-              <div
-                key={id}
-                onClick={() => setSelectedSaleNft(id)}
-                className={`nft-item ${selectedSaleNft === id ? "selected" : ""}`}
-              >
-                #{id}/{limit} : {price} FUSD
-              </div>
-              ))}
-          
-        </div>)}
-        {isLimitReached && selectedSaleNft && (
-          <div className="BigDaddyMarketplace-right-table-footer">
-            <button onClick={() => handleBuySecondHandNFT(selectedSaleNft)} className="glow-on-hover">Buy NFT</button>
-          </div>
+        <div>
+          <h2>NFT Details</h2>
+          {isEditable ? (
+            <div>
+              <p>NFT ID: {selectedNft.nftId}</p>
+              <label className="bigdaddy-label">
+              Website Title:
+              <input type="text" value={title} onChange={e => setTitle(e.target.value)} className="bigdaddy-input" />
+              </label>
+              <label className="bigdaddy-label">
+              Website Description:
+              <textarea value={description} onChange={e => setDescription(e.target.value)} className="bigdaddy-input" />
+             </label>
+              <button onClick={handleDeploy}>Deploy</button>
+            </div>
+          ) : (
+            <div>
+              
+          <p>NFT ID: {selectedNft.nftId}</p>
+          <p>Website Title: {selectedNft.websiteTitle}</p>
+          <p>Website Description: {selectedNft.websiteDescription}</p>
+
+            </div>
           )}
-          {!isLimitReached && (
-            <button onClick={() => handleBuyNFT()} className="glow-on-hover" >Buy ${price} FUSD</button>
-          )}
+        </div>
+       
       </div>
+    </div>
     </div>
   );
 }

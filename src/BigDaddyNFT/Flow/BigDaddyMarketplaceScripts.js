@@ -20,18 +20,11 @@ class BigDaddyMarketplaceScripts {
     return fcl.decode(response)
   }
 
-  async getTemplatebySiteId(siteId) {
-    let args = fcl.args([
-      fcl.arg(siteId, fcl.t.String)
-    ])
-    return this.executeScript(GET_TEMPLATE_BY_SITE_SCRIPT, args)
-  }
-
   async hasBigDaddyMarketplaceCollection(addr) {
     let args = fcl.args([
       fcl.arg(addr, fcl.t.Address)
     ])
-    return this.executeScript(HAS_BigDaddyMarketplace_COLLECTION_SCRIPT, args)
+    return this.executeScript(HAS_BIGDADDYMARKETPLACE_COLLECTION_SCRIPT, args)
   }
 
   async getFUSDBalance(addr) {
@@ -41,19 +34,16 @@ class BigDaddyMarketplaceScripts {
     return this.executeScript(GET_FUSD_BALANCE, args)
   }
 
-  async getPersonnalBigDaddyMarketplaceNFTList(siteId, addr) {
+  async getPersonnalBigDaddyMarketplaceNFTList(addr) {
     let args = fcl.args([
-      fcl.arg(addr, fcl.t.Address),
-      fcl.arg(siteId, fcl.t.String)
+      fcl.arg(addr, fcl.t.Address)
     ])
     return this.executeScript(GET_PERSONNAL_NFT_LIST_SCRIPT, args)
   }
 
-  async getBigDaddyMarketplaceSaleList(siteId) {
-    let args = fcl.args([
-      fcl.arg(siteId, fcl.t.String)
-    ])
-    return this.executeScript(GET_SALE_LIST_SCRIPT, args)
+  async getBigDaddyMarketplaceTemplates() {
+    let args = fcl.args([])
+    return this.executeScript(LIST_NFT_TEMPLATES_SCRIPT, args)
   }
 
 }

@@ -11,36 +11,28 @@ export function useBigDaddyMarketplaceContext() {
   return useContext(BigDaddyMarketplaceContext);
 }
 
-export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, imagePath, creatorPathAfterAuth }) {
+export function BigDaddyMarketplaceProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [hasPersonnalAccess, setHasPersonnalAccess] = useState(false);
   const [isCollectionEnabled, setIsCollectionEnabled] = useState(false);
-  const [nftTemplate, setNFTTemplate] = useState(null);
   const [user, setUser] = useState(null);
   const [isBigDaddyMarketplaceLoading, setIsBigDaddyMarketplaceLoading] = useState(false);
   const [isBigDaddyMarketplaceErrorModalOpen, setIsBigDaddyMarketplaceErrorModalOpen] = useState(false);
-  const [BigDaddyMarketplaceErrorMessage, setBigDaddyMarketplaceErrorMessage] = useState("");
+  const [bigDaddyMarketplaceErrorMessage, setBigDaddyMarketplaceErrorMessage] = useState("");
   const [fusdBalance, setfusdBalance] = useState(0.0);
   const [nftList, setNFTList] = useState([]);
-  const [saleList, setSaleList] = useState({});
+  const [bigDaddyMarketplaceTemplates, setBigDaddyMarketplaceTemplates] = useState({});
   const [needRefresh, setNeedRefresh] = useState(false);
-  const [isCreator, setIsCreator] = useState(false);
 
-  const nftImagePath = imagePath;
-
-  const BigDaddyMarketplaceScripts = new BigDaddyMarketplaceScripts();
-  const BigDaddyMarketplaceTransactions = new BigDaddyMarketplaceTransactions();
+  const bigDaddyMarketplaceScripts = new BigDaddyMarketplaceScripts();
+  const bigDaddyMarketplaceTransactions = new BigDaddyMarketplaceTransactions();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       hasBigDaddyMarketplaceCollection();
-      getBigDaddyMarketplaceTemplate();
-      getPersonnalAccess();
+      getBigDaddyMarketplaceTemplates();
       getFUSDBalance();
       getPersonnalBigDaddyMarketplaceNFTList();
-      getSaleList();
-      getIsCreator();
       }
 
   }, [user,needRefresh]);
@@ -59,18 +51,11 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
       setIsLoggedIn(false);
     }
   };
-  const getIsCreator = () => {
-    if (user !== null && nftTemplate !== null) {
-      if (user.addr == nftTemplate.creator) {
-        setIsCreator(true);
-      }
-    }
-  };
 
   const hasBigDaddyMarketplaceCollection = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      const collectionExists = await BigDaddyMarketplaceScripts.hasBigDaddyMarketplaceCollection(user.addr);
+      const collectionExists = await bigDaddyMarketplaceScripts.hasBigDaddyMarketplaceCollection(user.addr);
       setIsCollectionEnabled(collectionExists);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
@@ -83,7 +68,7 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
   const getFUSDBalance = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      const fusdBalance = await BigDaddyMarketplaceScripts.getFUSDBalance(user.addr);
+      const fusdBalance = await bigDaddyMarketplaceScripts.getFUSDBalance(user.addr);
       setfusdBalance(fusdBalance);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
@@ -96,7 +81,7 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
   const getPersonnalBigDaddyMarketplaceNFTList = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      const nftList = await BigDaddyMarketplaceScripts.getPersonnalBigDaddyMarketplaceNFTList(siteId, user.addr);
+      const nftList = await bigDaddyMarketplaceScripts.getPersonnalBigDaddyMarketplaceNFTList(siteId, user.addr);
       setNFTList(nftList);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
@@ -106,37 +91,11 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
     }
   };
 
-  const getSaleList = async () => {
+  const getBigDaddyMarketplaceTemplates = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      const NFTList = await BigDaddyMarketplaceScripts.getBigDaddyMarketplaceSaleList(siteId);
-      setSaleList(NFTList);
-    } catch (error) {
-      setBigDaddyMarketplaceErrorMessage(error);
-      setIsBigDaddyMarketplaceErrorModalOpen(true);
-    } finally {
-      setIsBigDaddyMarketplaceLoading(false);
-    }
-  };
-
-  const getBigDaddyMarketplaceTemplate = async () => {
-    setIsBigDaddyMarketplaceLoading(true);
-    try {
-      const template = await BigDaddyMarketplaceScripts.getTemplatebySiteId(siteId);
-      setNFTTemplate(template);
-    } catch (error) {
-      setBigDaddyMarketplaceErrorMessage(error);
-      setIsBigDaddyMarketplaceErrorModalOpen(true);
-    } finally {
-      setIsBigDaddyMarketplaceLoading(false);
-    }
-  };
-
-  const getPersonnalAccess = async () => {
-    setIsBigDaddyMarketplaceLoading(true);
-    try {
-      const personalAccess = await BigDaddyMarketplaceScripts.getPersonnalAccess(siteId, user.addr);
-      setHasPersonnalAccess(personalAccess);
+      const NFTList = await bigDaddyMarketplaceScripts.getBigDaddyMarketplaceTemplates();
+      setBigDaddyMarketplaceTemplates(NFTList);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
       setIsBigDaddyMarketplaceErrorModalOpen(true);
@@ -148,7 +107,7 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
   const handleActivateBigDaddyMarketplaceCollection = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      await BigDaddyMarketplaceTransactions.enableBigDaddyMarketplaceCollection();
+      await bigDaddyMarketplaceTransactions.enableBigDaddyMarketplaceCollection();
       setIsCollectionEnabled(hasBigDaddyMarketplaceCollection);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
@@ -158,11 +117,10 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
     }
   };
 
-  const handleBuyNFT = async () => {
+  const handleBuyBigDaddyMarketplaceNFT = async (templateId) => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      await BigDaddyMarketplaceTransactions.buyBigDaddyMarketplaceNFT(siteId);
-      getPersonnalAccess();
+      await bigDaddyMarketplaceTransactions.buyBigDaddyMarketplaceNFT(templateId);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
       setIsBigDaddyMarketplaceErrorModalOpen(true);
@@ -172,25 +130,10 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
     }
   };
 
-  const handleBuySecondHandNFT = async (sellTemplateNumber) => {
+  const handledeployBigDaddyMarketplaceNFT = async (nftId, websiteTitle, websiteDescription, siteId) => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      await BigDaddyMarketplaceTransactions.buySecondHandBigDaddyMarketplaceNFT(siteId, sellTemplateNumber);
-      getPersonnalAccess();
-    } catch (error) {
-      setBigDaddyMarketplaceErrorMessage(error);
-      setIsBigDaddyMarketplaceErrorModalOpen(true);
-    } finally {
-      setIsBigDaddyMarketplaceLoading(false);
-      setNeedRefresh(true);
-    }
-  };
-
-  const handleSellNFT = async (sellTemplateNumber, sellPrice) => {
-    setIsBigDaddyMarketplaceLoading(true);
-    try {
-      await BigDaddyMarketplaceTransactions.sellBigDaddyMarketplaceNFT(siteId, sellTemplateNumber, sellPrice);
-      getPersonnalAccess();
+      await bigDaddyMarketplaceTransactions.deployBigDaddyMarketplaceNFT(nftId, websiteTitle, websiteDescription, siteId);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
       setIsBigDaddyMarketplaceErrorModalOpen(true);
@@ -205,12 +148,12 @@ export function BigDaddyMarketplaceProvider({ children, siteId, pathAfterAuth, i
     setBigDaddyMarketplaceErrorMessage("");
   };
   
-  const redirectAfterAuth = () => {
-  navigate(pathAfterAuth);
+  const redirectToMarketplace = () => {
+  navigate("/");
 };
 
-const redirectCreatorAfterAuth = () => {
-  navigate(creatorPathAfterAuth);
+const redirectToNFTPortal = () => {
+  navigate("/myprofile");
 };
 
 const finishRefresh = () => {
@@ -220,29 +163,24 @@ const finishRefresh = () => {
 
 
   return (
-    <BigDaddyMarketplaceContext.Provider value={{ BigDaddyMarketplaceErrorMessage, 
+    <BigDaddyMarketplaceContext.Provider value={{ bigDaddyMarketplaceErrorMessage, 
                                       isBigDaddyMarketplaceLoading, 
                                       isBigDaddyMarketplaceErrorModalOpen, 
                                       isLoggedIn, 
-                                      hasPersonnalAccess, 
                                       isCollectionEnabled,
-                                      nftTemplate, 
-                                      nftImagePath,
+                                      bigDaddyMarketplaceTemplates,
                                       nftList,
-                                      saleList,
                                       fusdBalance,
                                       user,
                                       needRefresh,
-                                      isCreator,
                                       validateLoggedIn, 
-                                      disconnect, 
-                                      handleBuyNFT, 
+                                      disconnect,  
                                       handleActivateBigDaddyMarketplaceCollection, 
-                                      redirectAfterAuth,
-                                      redirectCreatorAfterAuth,
+                                      redirectToMarketplace,
+                                      redirectToNFTPortal,
                                       closeBigDaddyMarketplaceErrorModal,
-                                      handleSellNFT,
-                                      handleBuySecondHandNFT,
+                                      handleBuyBigDaddyMarketplaceNFT,
+                                      handledeployBigDaddyMarketplaceNFT,
                                       finishRefresh }}>
       {children}
     </BigDaddyMarketplaceContext.Provider>

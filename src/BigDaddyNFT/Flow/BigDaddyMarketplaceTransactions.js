@@ -1,9 +1,9 @@
 import * as fcl from "@onflow/fcl"
 
 // Importez vos transactions Cadence
-import { ENABLE_BigDaddyMarketplace_COLLECTION_TX } from './transactions/EnableBigDaddyMarketplaceCollection'
+import { ENABLE_BIGDADDYMARKETPLACE_COLLECTION_TX } from './transactions/EnableBigDaddyMarketplaceCollection'
 import { BUY_NFT_TX } from "./transactions/BuyNFT"
-import { BUY_2ND_Hand_NFT_TX } from "./transactions/DeployNFT"
+import { DEPLOY_NFT_TX } from "./transactions/DeployNFT"
 import { SELL_BIG_DADDY_NFT_TX } from "./transactions/SellNFT"
 
 class BigDaddyMarketplaceTransactions {
@@ -30,31 +30,24 @@ class BigDaddyMarketplaceTransactions {
   // Créez des fonctions distinctes pour chaque transaction
   async enableBigDaddyMarketplaceCollection() {
     let args = fcl.args([])
-    return this.sendTransaction(ENABLE_BigDaddyMarketplace_COLLECTION_TX, args)
+    return this.sendTransaction(ENABLE_BIGDADDYMARKETPLACE_COLLECTION_TX, args)
   }
 
-  async buyBigDaddyMarketplaceNFT(siteId) {
+  async buyBigDaddyMarketplaceNFT(templateId) {
     let args = fcl.args([
-      fcl.arg(siteId, fcl.t.String)
+      fcl.arg(templateId, fcl.t.UInt32)
     ])
     return this.sendTransaction(BUY_NFT_TX, args)
   }
 
-  async sellBigDaddyMarketplaceNFT(siteId, sellTemplateNumber, sellPrice) {
+  async deployBigDaddyMarketplaceNFT(nftId, websiteTitle, websiteDescription, siteId) {
     let args = fcl.args([
-      fcl.arg(siteId, fcl.t.String),
-      fcl.arg(sellTemplateNumber, fcl.t.UInt32),
-      fcl.arg(sellPrice, fcl.t.UFix64)
+      fcl.arg(nftId, fcl.t.UInt64),
+      fcl.arg(websiteTitle, fcl.t.String),
+      fcl.arg(websiteDescription, fcl.t.String),
+      fcl.arg(siteId, fcl.t.String)
     ])
-    return this.sendTransaction(SELL_BIG_DADDY_NFT_TX, args)
-  }
-
-  async buySecondHandBigDaddyMarketplaceNFT(siteId, templateNumber) {
-    let args = fcl.args([
-      fcl.arg(siteId, fcl.t.String),
-      fcl.arg(templateNumber, fcl.t.UInt32)
-    ])
-    return this.sendTransaction(BUY_2ND_Hand_NFT_TX, args)
+    return this.sendTransaction(DEPLOY_NFT_TX, args)
   }
 
 }
