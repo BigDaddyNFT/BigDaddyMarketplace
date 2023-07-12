@@ -73,7 +73,7 @@ const MarketplacePublicPage = () => {
       <img src={"/bigdaddymarketplace/logo-4.png"} width={"300px"} height={"150px"} />
       <h1>BigDaddy Marketplace</h1>
       <button onClick={redirectToNFTPortal} className="glow-on-hover logout">Go to my Profile Page</button>
-      <div classname="card-list">
+      <div className="card-list">
         {Object.values(bigDaddyMarketplaceTemplates).map((template) => (
           <Card key={template.templateID} template={template} />
         ))}
