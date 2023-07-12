@@ -1,0 +1,38 @@
+stages:
+  - build
+  - deploy
+
+build:
+  image: node:18-alpine
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+  variables: 
+    CI : "false"
+    PUBLIC_URL: $PUBLIC_URL
+  script:
+    - npm install      
+    - npm run build
+  artifacts:
+    paths:
+      - build/ 
+  tags:
+    - bigdaddy-runner
+
+pages:
+  image: node:18-alpine
+  stage: deploy
+  dependencies: 
+    - build
+  script:
+    - cp public/bigdaddylogo-ico-color.png build/bigdaddy-logo-ico-color.png
+    - cp public/logo-4.png build/logo-4.png
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+  artifacts:
+    paths:
+      - public
+  tags:
+    - bigdaddy-runner

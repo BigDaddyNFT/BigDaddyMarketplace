@@ -33,7 +33,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
 
   return (
     <div className="BigDaddyMarketplaceContainer">
-      <img src={"/logo-4.png"} width={"300px"} height={"150px"}/>
+      <img src={"/bigdaddymarketplace/logo-4.png"} width={"300px"} height={"150px"}/>
 
       <div className="BigDaddyMarketplaceuserProfile">
         <p>Address: {user?.addr}</p>
