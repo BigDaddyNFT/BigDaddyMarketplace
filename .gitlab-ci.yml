@@ -26,7 +26,7 @@ pages:
   dependencies: 
     - build
   script:
-    - cp public/bigdaddylogo-ico-color.png build/bigdaddy-logo-ico-color.png
+    - cp public/bigdaddy-logo-ico-color.png build/bigdaddy-logo-ico-color.png
     - cp public/logo-4.png build/logo-4.png
     - rm -rf public
     - cp build/index.html build/404.html
