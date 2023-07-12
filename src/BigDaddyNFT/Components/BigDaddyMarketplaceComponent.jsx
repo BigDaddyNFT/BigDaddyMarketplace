@@ -9,30 +9,22 @@ import BigDaddyMarketplaceLoginPage from './BigDaddyMarketplaceLoginPage.jsx';
 
 
 const BigDaddyMarketplaceComponent = () => {
-  const { BigDaddyMarketplaceErrorMessage, 
+  const { bigDaddyMarketplaceErrorMessage, 
     isBigDaddyMarketplaceLoading, 
     isBigDaddyMarketplaceErrorModalOpen, 
     isLoggedIn, 
-    isCreator,
-    hasPersonnalAccess, 
     isCollectionEnabled,
-    nftTemplate, 
-    nftImagePath,
     nftList,
-    saleList,
     fusdBalance,
     user,
     needRefresh,
     validateLoggedIn, 
-    disconnect, 
-    handleBuyNFT, 
+    disconnect,  
     handleActivateBigDaddyMarketplaceCollection, 
-    redirectAfterAuth,
-    redirectCreatorAfterAuth,
+    redirectToMarketplace,
     closeBigDaddyMarketplaceErrorModal,
-    handleSellNFT,
-    handleBuySecondHandNFT,
-    finishRefresh   } = useBigDaddyMarketplaceContext();
+    handledeployBigDaddyMarketplaceNFT,
+    finishRefresh  } = useBigDaddyMarketplaceContext();
 
   useEffect(() => {
     fcl.currentUser.subscribe((currentUser) => {
@@ -93,7 +85,7 @@ const BigDaddyMarketplaceComponent = () => {
             <div className="modal">
               <div className="modal__content">
                 <h1>Error</h1>
-                <p>{BigDaddyMarketplaceErrorMessage}</p>
+                <p>{bigDaddyMarketplaceErrorMessage}</p>
                 <button onClick={closeBigDaddyMarketplaceErrorModal} className="modal__close">&times;</button>
               </div>
             </div>
@@ -111,22 +103,14 @@ const BigDaddyMarketplaceComponent = () => {
       ) :
         (
           <BigDaddyMarketplaceNFTBuyerPage
-            handleBuyNFT={handleBuyNFT}
-            nftTemplate={nftTemplate}
             handleLogOut={handleLogOut}
-            hasPersonnalAccess={hasPersonnalAccess} 
-            redirectAfterAuth = {redirectAfterAuth}
-            nftImagePath = {nftImagePath}
             nftList={nftList}
-            saleList={saleList}
             fusdBalance={fusdBalance}
-            handleSellNFT={handleSellNFT}
-            handleBuySecondHandNFT={handleBuySecondHandNFT}
             user = {user}
             needRefresh = {needRefresh}
             finishRefresh={finishRefresh}
-            isCreator={isCreator}
-            redirectCreatorAfterAuth={redirectCreatorAfterAuth}/>
+            redirectToMarketplace={redirectToMarketplace}
+            handledeployBigDaddyMarketplaceNFT={handledeployBigDaddyMarketplaceNFT}/>
         )
       ) : (
         <BigDaddyMarketplaceLoginPage

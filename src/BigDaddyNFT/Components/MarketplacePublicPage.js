@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import '../BigDaddyMarketplaceCSS.css';
+import { useBigDaddyMarketplaceContext } from '../Provider/BigDaddyMarketplaceContext.jsx';
+
 
 
 const Card = ({ template }) => {
@@ -26,12 +28,7 @@ const Card = ({ template }) => {
 
   return (
     <div>
-      <div className="card" onClick={openModal}>
-        <img src={template.miniatureURL} alt="Thumbnail" style={{ width: '100px', height: '100px' }} />
-        <div>{template.name}</div>
-        <div>{template.price}</div>
-        <div>{template.description}</div>
-      </div>
+    
 
       <div className="card" onClick={openModal}>
         <div className="card-image">
@@ -67,19 +64,19 @@ const Card = ({ template }) => {
   );
 };
 
-const TemplateList = () => {
+const MarketplacePublicPage = () => {
   const { bigDaddyMarketplaceTemplates } = useBigDaddyMarketplaceContext();
 
   return (
-  <div className="BigDaddyMarketplaceContainer">
-    <img src={"/BigDaddyMarketplace-logo-quart.png"} width={"300px"} height={"150px"} />
-    <div classname="card-list">
-      {bigDaddyMarketplaceTemplates.map((template) => (
-        <Card key={template.templateID} template={template} />
-      ))}
+    <div className="BigDaddyMarketplaceContainer">
+      <img src={"/BigDaddyMarketplace-logo-quart.png"} width={"300px"} height={"150px"} />
+      <div classname="card-list">
+        {Object.values(bigDaddyMarketplaceTemplates).map((template) => (
+          <Card key={template.templateID} template={template} />
+        ))}
+      </div>
     </div>
-  </div>
   )
 };
 
-export default TemplateList;
+export default MarketplacePublicPage;

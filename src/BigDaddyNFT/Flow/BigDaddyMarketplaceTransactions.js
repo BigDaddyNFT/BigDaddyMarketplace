@@ -4,7 +4,6 @@ import * as fcl from "@onflow/fcl"
 import { ENABLE_BIGDADDYMARKETPLACE_COLLECTION_TX } from './transactions/EnableBigDaddyMarketplaceCollection'
 import { BUY_NFT_TX } from "./transactions/BuyNFT"
 import { DEPLOY_NFT_TX } from "./transactions/DeployNFT"
-import { SELL_BIG_DADDY_NFT_TX } from "./transactions/SellNFT"
 
 class BigDaddyMarketplaceTransactions {
 

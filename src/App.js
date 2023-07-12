@@ -1,9 +1,9 @@
 import './App.css';
-import { BigDaddyMarketplaceProvider, BigDaddyMarketplaceComponent} from './BigDaddyMarketplaceNFT/BigDaddyMarketplace-config';
+import { BigDaddyMarketplaceProvider, BigDaddyMarketplaceComponent} from './BigDaddyNFT/BigDaddy-config';
 import MarketplacePublicPage from './BigDaddyNFT/Components/MarketplacePublicPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import './BigDaddyMarketplaceNFT/BigDaddyMarketplace-flow-config'
+import './BigDaddyNFT/BigDaddy-flow-config'
 
 function App() {
   return (

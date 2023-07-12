@@ -1,4 +1,4 @@
-export const DEPLOY_NFT_TX = `import BigDaddyMarketplaceContract from 0x03
+export const DEPLOY_NFT_TX = `import BigDaddyMarketplaceContract from 0xd75dc7fd8d3cd8f4
 
 transaction(nftId: UInt64, websiteTitle: String, websiteDescription: String, siteId: String) {
   let deployerReference: &BigDaddyMarketplaceContract.Collection{BigDaddyMarketplaceContract.CollectionPublic}

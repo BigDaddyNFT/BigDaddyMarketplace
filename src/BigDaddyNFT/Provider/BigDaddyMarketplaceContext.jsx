@@ -81,7 +81,7 @@ export function BigDaddyMarketplaceProvider({ children }) {
   const getPersonnalBigDaddyMarketplaceNFTList = async () => {
     setIsBigDaddyMarketplaceLoading(true);
     try {
-      const nftList = await bigDaddyMarketplaceScripts.getPersonnalBigDaddyMarketplaceNFTList(siteId, user.addr);
+      const nftList = await bigDaddyMarketplaceScripts.getPersonnalBigDaddyMarketplaceNFTList(user.addr);
       setNFTList(nftList);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);

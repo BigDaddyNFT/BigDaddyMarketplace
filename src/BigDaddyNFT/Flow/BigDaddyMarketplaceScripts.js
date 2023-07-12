@@ -2,7 +2,7 @@ import * as fcl from "@onflow/fcl"
 
 // Importez vos scripts Cadence
 import { HAS_BIGDADDYMARKETPLACE_COLLECTION_SCRIPT } from "./scripts/HasBigDaddyMarketplaceCollection"
-import { LIST_NFT_TEMPLATES_SCRIPT } from "./scripts/GetTemplatebySite"
+import { LIST_NFT_TEMPLATES_SCRIPT } from "./scripts/ListNFTTemplates"
 import { GET_PERSONNAL_NFT_LIST_SCRIPT } from "./scripts/GetPersonnalNFTList"
 import { GET_FUSD_BALANCE } from "./scripts/GetFUSDBalance"
 
