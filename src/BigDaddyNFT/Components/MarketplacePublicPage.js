@@ -32,7 +32,7 @@ const Card = ({ template }) => {
 
       <div className="card" onClick={openModal}>
         <div className="card-image">
-          <img src={template.miniatureURL} alt="London trip" />
+          <img src={template.miniatureURL} alt="London trip" width={"300px"} height={"150px"}/>
         </div>
         <div className="card-body">
           <span className="date">{template.price} FUSD</span>
@@ -50,9 +50,9 @@ const Card = ({ template }) => {
         contentLabel="Website Template"
       >
         <h2>{template.name}</h2>
-        <img src={template.picture1Url} alt="Image 1" />
-        <img src={template.picture2Url} alt="Image 2" />
-        <img src={template.picture3Url} alt="Image 3" />
+        <img src={template.picture1Url} alt="Image 1" width={"600px"} height={"300px"}/>
+        <img src={template.picture2Url} alt="Image 2" width={"600px"} height={"300px"}/>
+        <img src={template.picture3Url} alt="Image 3" width={"600px"} height={"300px"}/>
         <p>Video: {template.videoUrl}</p>
         <p>Creator website: {template.creatorwebsiteUrl}</p>
         <p>Demo website: {template.demowebsiteUrl}</p>
