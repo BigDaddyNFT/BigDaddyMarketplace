@@ -30,10 +30,10 @@ export function BigDaddyMarketplaceProvider({ children }) {
   useEffect(() => {
     if (user) {
       hasBigDaddyMarketplaceCollection();
-      getBigDaddyMarketplaceTemplates();
       getFUSDBalance();
       getPersonnalBigDaddyMarketplaceNFTList();
       }
+      getBigDaddyMarketplaceTemplates();
 
   }, [user,needRefresh]);
 

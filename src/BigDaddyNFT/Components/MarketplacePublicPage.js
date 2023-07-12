@@ -40,6 +40,7 @@ const Card = ({ template }) => {
           <p>{template.description}</p>
         </div>
         <div class="card-footer">
+          <h4 >Details</h4>
         </div>
       </div>
 
@@ -57,19 +58,20 @@ const Card = ({ template }) => {
         <p>Demo website: {template.demowebsiteUrl}</p>
         <p>Description: {template.description}</p>
         <p>Price: {template.price} FUSD</p>
-        <button onClick={handleBuy}>Buy Website</button>
-        <button onClick={closeModal}>Close</button>
+        <button className="glow-on-hover" onClick={handleBuy}>Buy Website</button>
+        <button className="glow-on-hover" onClick={closeModal}>Close Window</button>
       </Modal>
     </div>
   );
 };
 
 const MarketplacePublicPage = () => {
-  const { bigDaddyMarketplaceTemplates } = useBigDaddyMarketplaceContext();
+  const { bigDaddyMarketplaceTemplates , redirectToNFTPortal} = useBigDaddyMarketplaceContext();
 
   return (
     <div className="BigDaddyMarketplaceContainer">
-      <img src={"/BigDaddyMarketplace-logo-quart.png"} width={"300px"} height={"150px"} />
+      <img src={"/logo-4.png"} width={"300px"} height={"150px"} />
+      <button onClick={redirectToNFTPortal} className="glow-on-hover logout">Go to my Profile Page</button>
       <div classname="card-list">
         {Object.values(bigDaddyMarketplaceTemplates).map((template) => (
           <Card key={template.templateID} template={template} />

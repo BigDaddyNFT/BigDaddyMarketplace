@@ -33,7 +33,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
 
   return (
     <div className="BigDaddyMarketplaceContainer">
-      <img src={"/BigDaddyMarketplace-logo-quart.png"} width={"300px"} height={"150px"}/>
+      <img src={"/logo-4.png"} width={"300px"} height={"150px"}/>
 
       <div className="BigDaddyMarketplaceuserProfile">
         <p>Address: {user?.addr}</p>
@@ -53,8 +53,10 @@ function BigDaddyMarketplaceNFTBuyerPage({
             key={nft.nftId}
             onClick={() => {
               setSelectedNft(nft);
-              setTitle(selectedNft.title);
-              setDescription(selectedNft.description);
+              setTitle(nft.websiteTitle);
+            
+              setDescription(nft.websiteDescription);
+            
             }}
             className={`nft-item ${selectedNft === nft ? "selected" : ""}`}
           >
@@ -91,7 +93,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
                       BigDaddy SiteId:
                       <input type="text" value={siteId} onChange={e => setSiteId(e.target.value)} className="bigdaddy-input" />
                     </label>
-                    <button onClick={handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId)}>Deploy</button>
+                    <button className="glow-on-hover logout" onClick={() => {handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId)}}>Deploy</button>
                     </>
                 )}
               </div></>
