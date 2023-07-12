@@ -378,7 +378,7 @@ body {
 }
 
 .card-list {
-    width                : 70%;
+    width                : 90%;
     display              : grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     grid-gap             : 4em
@@ -399,6 +399,7 @@ body {
     overflow     : hidden;
     cursor       : pointer;
     transition   : transform 0.4s;
+    width       : 350px;
 }
 
 .card:hover {
