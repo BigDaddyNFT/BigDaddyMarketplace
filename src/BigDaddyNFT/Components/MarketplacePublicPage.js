@@ -11,6 +11,7 @@ const Card = ({ template }) => {
 
   const handleBuy = () => {
     if (isLoggedIn) {
+      closeModal();
       handleBuyBigDaddyMarketplaceNFT(template.templateID);
     }
     else {
