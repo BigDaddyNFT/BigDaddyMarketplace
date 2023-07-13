@@ -137,7 +137,7 @@ export function BigDaddyMarketplaceProvider({ children }) {
     const description = websiteTitle;
     setIsBigDaddyMarketplaceLoading(true);
 //TODO: move base_url in .env
-    const response = await fetch('https://us-central1-bigdaddynft.cloudfunctions.net/createGitLabAccount', {
+    const response = await fetch('https://us-central1-bigdaddynft.cloudfunctions.net/forkAndDeploy', {
     // const response = await fetch('http://127.0.0.1:5001/bigdaddynft/us-central1/forkAndDeploy', {
       method: 'POST',
       headers: {
