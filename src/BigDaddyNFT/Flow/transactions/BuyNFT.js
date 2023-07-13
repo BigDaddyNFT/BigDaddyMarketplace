@@ -1,4 +1,4 @@
-export const BUY_NFT_TX = `import BigDaddyMarketplaceContract from 0xd75dc7fd8d3cd8f4
+export const BUY_NFT_TX = `import BigDaddyMarketplaceContract from 0x4a3113da5c8e65f6
 
 transaction(templateId: UInt32) {
   let receiverReference: &BigDaddyMarketplaceContract.Collection{BigDaddyMarketplaceContract.Receiver}

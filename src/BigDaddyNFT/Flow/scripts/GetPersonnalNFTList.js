@@ -1,4 +1,4 @@
-export const GET_PERSONNAL_NFT_LIST_SCRIPT = `import BigDaddyMarketplaceContract from 0xd75dc7fd8d3cd8f4
+export const GET_PERSONNAL_NFT_LIST_SCRIPT = `import BigDaddyMarketplaceContract from 0x4a3113da5c8e65f6
 pub fun main(address: Address): [BigDaddyMarketplaceContract.UserNFTTemplate]? {
   let account = getAccount(address)
 

@@ -93,7 +93,7 @@ function BigDaddyMarketplaceNFTBuyerPage({
                       BigDaddy SiteId:
                       <input type="text" value={siteId} onChange={e => setSiteId(e.target.value)} className="bigdaddy-input" />
                     </label>
-                    <button className="glow-on-hover logout" onClick={() => {handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId)}}>Deploy</button>
+                    <button className="glow-on-hover logout" onClick={() => {handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId, selectedNft.projectID)}}>Deploy</button>
                     </>
                 )}
               </div></>

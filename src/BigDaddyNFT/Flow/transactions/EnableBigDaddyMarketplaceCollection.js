@@ -1,4 +1,4 @@
-export const ENABLE_BIGDADDYMARKETPLACE_COLLECTION_TX = `import BigDaddyMarketplaceContract from 0xd75dc7fd8d3cd8f4
+export const ENABLE_BIGDADDYMARKETPLACE_COLLECTION_TX = `import BigDaddyMarketplaceContract from 0x4a3113da5c8e65f6
 import FUSD from 0xe223d8a629e49c68
 import FungibleToken from 0x9a0766d93b6608b7
 

@@ -131,35 +131,11 @@ export function BigDaddyMarketplaceProvider({ children }) {
     }
   };
 
-  const handledeployBigDaddyMarketplaceNFT = async (nftId, websiteTitle, websiteDescription, siteId) => {
-    // nom du projet a créer c'est (user.addr+nftId)
-    const projectName = user.addr+nftId;
-    const description = websiteTitle;
-    setIsBigDaddyMarketplaceLoading(true);
-//TODO: move base_url in .env
-    const response = await fetch('https://us-central1-bigdaddynft.cloudfunctions.net/forkAndDeploy', {
-    // const response = await fetch('http://127.0.0.1:5001/bigdaddynft/us-central1/forkAndDeploy', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        projectName: projectName,
-        publicUrl: `http://bigdaddywebsites.app.bigdaddy-nft.com/${projectName}`,
-        siteId: siteId,
-        description: description,
-        projectId: 20,
-        endPath: projectName
-      }),
-    });
-    console.log("First response :: ", response);
-
-    if (!response.ok) {
-      console.log("Responses[KO] :: ", response);
-      throw new Error('Failed fork or deploy ');
-    }
+  const handledeployBigDaddyMarketplaceNFT = async (nftId, websiteTitle, websiteDescription, siteId, projectId) => {
     try {
+      setIsBigDaddyMarketplaceLoading(true);
       await bigDaddyMarketplaceTransactions.deployBigDaddyMarketplaceNFT(nftId, websiteTitle, websiteDescription, siteId);
+      await forkAndDeploy(nftId, siteId, projectId, websiteTitle);
     } catch (error) {
       setBigDaddyMarketplaceErrorMessage(error);
       setIsBigDaddyMarketplaceErrorModalOpen(true);
@@ -186,6 +162,33 @@ const finishRefresh = () => {
   setNeedRefresh(false);
 };
 
+const forkAndDeploy = async (nftId, siteId, projectId, websiteTitle) => {
+// nom du projet a créer c'est (user.addr+nftId)
+const projectName = user.addr+nftId;
+//TODO: move base_url in .env
+const response = await fetch('https://us-central1-bigdaddynft.cloudfunctions.net/forkAndDeploy', {
+// const response = await fetch('http://127.0.0.1:5001/bigdaddynft/us-central1/forkAndDeploy', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    projectName: projectName,
+    publicUrl: `http://bigdaddywebsites.app.bigdaddy-nft.com/${projectName}`,
+    siteId: siteId,
+    description: websiteTitle,
+    projectId: projectId,
+    endPath: projectName
+  }),
+});
+console.log("First response :: ", response);
+
+if (!response.ok) {
+  console.log("Responses[KO] :: ", response);
+  throw new Error('Failed fork or deploy ');
+}
+
+};
 
 
   return (
