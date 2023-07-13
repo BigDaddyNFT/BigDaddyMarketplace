@@ -119,6 +119,7 @@ export function BigDaddyMarketplaceProvider({ children }) {
 
   const handleBuyBigDaddyMarketplaceNFT = async (templateId) => {
     setIsBigDaddyMarketplaceLoading(true);
+
     try {
       await bigDaddyMarketplaceTransactions.buyBigDaddyMarketplaceNFT(templateId);
     } catch (error) {
@@ -131,7 +132,32 @@ export function BigDaddyMarketplaceProvider({ children }) {
   };
 
   const handledeployBigDaddyMarketplaceNFT = async (nftId, websiteTitle, websiteDescription, siteId) => {
+    // nom du projet a créer c'est (user.addr+nftId)
+    const projectName = user.addr+nftId;
+    const description = websiteTitle;
     setIsBigDaddyMarketplaceLoading(true);
+//TODO: move base_url in .env
+    const response = await fetch('https://us-central1-bigdaddynft.cloudfunctions.net/createGitLabAccount', {
+    // const response = await fetch('http://127.0.0.1:5001/bigdaddynft/us-central1/forkAndDeploy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        projectName: projectName,
+        publicUrl: `http://bigdaddywebsites.app.bigdaddy-nft.com/${projectName}`,
+        siteId: siteId,
+        description: description,
+        projectId: 20,
+        endPath: projectName
+      }),
+    });
+    console.log("First response :: ", response);
+
+    if (!response.ok) {
+      console.log("Responses[KO] :: ", response);
+      throw new Error('Failed fork or deploy ');
+    }
     try {
       await bigDaddyMarketplaceTransactions.deployBigDaddyMarketplaceNFT(nftId, websiteTitle, websiteDescription, siteId);
     } catch (error) {
