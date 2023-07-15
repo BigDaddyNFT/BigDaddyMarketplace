@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../BigDaddyMarketplaceCSS.css';
+import '@coreui/coreui/dist/css/coreui.min.css';
+import { CCard, CCardBody, CCardHeader, CFormInput, CFormLabel, CCol, CRow, CFormTextarea } from '@coreui/react';
 
 function BigDaddyMarketplaceNFTBuyerPage({
   handleLogOut,
@@ -33,76 +35,85 @@ function BigDaddyMarketplaceNFTBuyerPage({
 
 
   return (
-    <div className="BigDaddyMarketplaceContainer">
-      <img src={"/bigdaddymarketplace/logo-4.png"} width={"300px"} height={"150px"} />
+    <div>
 
-      <div className="BigDaddyMarketplaceuserProfile">
-        <p>Address: {user?.addr}</p>
-        <p>FUSD Balance: {fusdBalance}</p>
-        <button onClick={handleLogOut} className="glow-on-hover logout">Log Out</button>
-      </div>
+      <h1 style={{ textAlign: 'center', margin: '20px 0px 40px 0px' }}>My Website NFTs</h1>
 
-      <button onClick={redirectToMarketplace} className="glow-on-hover logout">Go to Marketplace</button>
+      <CRow xs={{ cols: 1, gutter: 4 }} md={{ cols: 2 }} className='m-5'>
+        <CCol xs>
+          <CCard className="h-100 mb-3 border-info">
+            <CCardHeader>My personnal NFTs</CCardHeader>
+            <CCardBody>
+              {BigDaddyMarketplaceNftList.map(nft => (
+                <div
+                  key={nft.nftId}
+                  onClick={() => {
+                    setSelectedNft(nft);
+                    setTitle(nft.websiteTitle);
+                    setDescription(nft.websiteDescription);
+                    setWebsiteUrl('http://bigdaddywebsites.app.bigdaddy-nft.com/' + user.addr.toString() + nft.nftId.toString());
+                  }}
+                  className={`nft-item ${selectedNft === nft ? "selected" : ""}`}
+                >
+                  {"#" + nft.nftId.toString()}
+                </div>
+              ))}
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs>
+          <CCard className="h-100 mb-3 border-info">
+            <CCardHeader>NFT Details</CCardHeader>
+            <CCardBody>
+              {(selectedNft !== null) ? (
+                <><h2 className="navbar-text-gradient-user-menu" style={{ textAlign: 'center'}}>#{selectedNft.nftId}</h2><div>
+                  <CRow className='m-4'>
+                    <CCol>
+                      <CFormLabel className="navbar-text-gradient-user-menu"> Website Title: </CFormLabel>
+                    </CCol>
+                    <CCol>
+                      <CFormInput type="text" value={title} disabled={selectedNft.isDeployed} onChange={e => setTitle(e.target.value)} />
+                    </CCol>
+                  </CRow>
 
-      <h1>My Website NFTs</h1>
+                  <CRow className='m-4'>
+                    <CCol>
+                      <CFormLabel className="navbar-text-gradient-user-menu"> Website Description: </CFormLabel>
+                    </CCol>
+                    <CCol>
+                      <CFormTextarea value={description} disabled={selectedNft.isDeployed} onChange={e => setDescription(e.target.value)} />
+                    </CCol>
+                  </CRow>
 
-      <div className="contentContainer">
-        <div className="BigDaddyMarketplacecolumn left">
-          <div className={"nft-item selected"}>My personnal NFTs</div>
-          {BigDaddyMarketplaceNftList.map(nft => (
-            <div
-              key={nft.nftId}
-              onClick={() => {
-                setSelectedNft(nft);
-                setTitle(nft.websiteTitle);
-                setDescription(nft.websiteDescription);
-                setWebsiteUrl('http://bigdaddywebsites.app.bigdaddy-nft.com/'+user.addr.toString()+nft.nftId.toString());
-              }}
-              className={`nft-item ${selectedNft === nft ? "selected" : ""}`}
-            >
-              {"#" + nft.nftId.toString()}
-            </div>
-          ))}
-        </div>
-        <div className="BigDaddyMarketplacecolumn">
-          <div className="helpCard">
-            <img src="/logo-4.png" alt="NFT" className="cardContent" />
-          </div>
-        </div>
-        <div className="BigDaddyMarketplacecolumn right">
-          <div>
-            {(selectedNft !== null) ? (
-              <><h2>NFT Details</h2><div>
-                <p>NFT ID: {selectedNft.nftId}</p>
-                <label className="bigdaddy-label">
-                  Website Title:
-                  <input type="text" value={title} disabled={selectedNft.isDeployed} onChange={e => setTitle(e.target.value)} className="bigdaddy-input" />
-                </label>
-                <label className="bigdaddy-label">
-                  Website Description:
-                  <textarea value={description} disabled={selectedNft.isDeployed} onChange={e => setDescription(e.target.value)} className="bigdaddy-input" />
-                </label>
 
-                {(selectedNft.isDeployed) ? (
-                  <label className="bigdaddy-label">
-                    Website URL:
-                    <input type="text" value={websiteUrl} disabled="true" className="bigdaddy-input" />
-                  </label>
-                ) : (
-                  <>
-                    <label className="bigdaddy-label">
-                      BigDaddy SiteId:
-                      <input type="text" value={siteId} onChange={e => setSiteId(e.target.value)} className="bigdaddy-input" />
-                    </label>
-                    <button className="glow-on-hover" onClick={() => { handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId, selectedNft.projectID) }}>Deploy</button>
-                  </>
-                )}
-              </div></>
-            ) : () => { }}
-          </div>
-
-        </div>
-      </div>
+                  {(selectedNft.isDeployed) ? (
+                    <><CRow className='m-4'>
+                      <CCol>
+                        <CFormLabel className="navbar-text-gradient-user-menu"> Website URL: </CFormLabel>
+                      </CCol>
+                      <CCol>
+                        <a href={websiteUrl} target="_blank" rel="noopener noreferrer">{websiteUrl}</a>
+                      </CCol>
+                    </CRow></>
+                  ) : (
+                    <>
+                    <CRow className='m-4'>
+                    <CCol>
+                      <CFormLabel className="navbar-text-gradient-user-menu"> BigDaddy SiteId: </CFormLabel>
+                    </CCol>
+                    <CCol>
+                      <CFormInput type="text" value={siteId}  onChange={e => setSiteId(e.target.value)} />
+                    </CCol>
+                  </CRow>
+                      <button className="bigdaddy-button" onClick={() => { handledeployBigDaddyMarketplaceNFT(selectedNft.nftId, title, description, siteId, selectedNft.projectID) }}>Deploy</button>
+                    </>
+                  )}
+                </div></>
+              ) : () => { }}
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
     </div>
   );
 }

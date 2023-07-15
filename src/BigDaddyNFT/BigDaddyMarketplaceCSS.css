@@ -1,54 +1,29 @@
-@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 
 body {
     margin: 0;
     padding: 0;
 }
 
-.title {
+.logo {
     position: absolute;
     top: 10px;
     left: 50%;
-    transform: translateX(-50%);
     color: #262626;
     padding: 20px 50px;
-    font: normal 70px Varela Round, sans-serif;
-}
-
-.title:before {
-    background: #262626;
-    color: white;
-    content: 'BigDaddyMarketplace NFT';
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 20px 50px;
-    -webkit-clip-path: polygon(0% 0%, 30% 0%, 30% 100%, 0% 100%);
-    clip-path: polygon(0% 0%, 30% 0%, 30% 100%, 0% 100%);
-    animation: slide 4s 1s linear infinite;
-}
-
-@keyframes slide {
-    50% {
-        -webkit-clip-path: polygon(70% 0%, 100% 0%, 100% 100%, 70% 100%);
-    }
 }
 
 
 .BigDaddyMarketplaceContainer {
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: #fff;
-    font-family: Arial, sans-serif;
 }
+
+.BigDaddyMarketplaceContainer img {
+    margin-top: 5px;
+  }
 
 @keyframes gradient {
     0% {
@@ -122,20 +97,6 @@ body {
     text-decoration: none;
 }
 
-.BigDaddyMarketplaceContainer h1 {
-    color: hsla(0, 0%, 0%, .9);
-    font: normal 60px Varela Round, sans-serif;
-    height: 70px;
-    left: 0;
-    letter-spacing: 2px;
-    margin: 0 px;
-    position: relative;
-    text-align: center;
-    text-transform: uppercase;
-    width: 100%;
-    padding-top: 10px;
-}
-
 
 .BigDaddyMarketplaceContainer h2 {
     font-size: 2em;
@@ -185,13 +146,13 @@ body {
     background-color: #6A5ACD;
 }
 
-.glow-on-hover {
+.bigdaddy-button {
     width: 220px;
     height: 50px;
     border: none;
     outline: none;
     color: #ffffff;
-    background: #000000;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);;
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -199,7 +160,7 @@ body {
     margin: 20px;
 }
 
-.glow-on-hover:before {
+.bigdaddy-button:before {
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
@@ -216,38 +177,48 @@ body {
     border-radius: 10px;
 }
 
-.glow-on-hover:active {
+.bigdaddy-button:active {
     color: #000
 }
 
-.glow-on-hover:active:after {
+.bigdaddy-button:active:after {
     background: transparent;
 }
 
-.glow-on-hover:hover:before {
+.bigdaddy-button:hover:before {
     opacity: 1;
 }
 
-.glow-on-hover:after {
+.bigdaddy-button:after {
     z-index: -1;
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: linear-gradient(to right, rgb(247, 4, 145), rgb(85, 3, 85));
     left: 0;
     top: 0;
     border-radius: 10px;
 }
 
-.glow-on-hover.logout {
+.bigdaddy-button.logout {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.glow-on-hover.buy {
+.bigdaddy-button.buy {
     margin-left: 150px;
+}
+
+.bigdaddy-button.menu {
+    width: 120px;
+    height: 60px;
+}
+
+.bigdaddy-button.large {
+    width: 250px;
+    height: 60px;
 }
 
 @keyframes glowing {
@@ -339,10 +310,11 @@ body {
     margin: 5px 0;
     border-radius: 5px;
     width: 100%;
+    
 }
 
 .nft-item.selected {
-    background-color: rgba(255, 255, 255, 0.4);
+    background: linear-gradient(to right, rgb(247, 4, 145), rgb(76, 192, 238));
     text-align: center;
 }
 
@@ -377,114 +349,17 @@ body {
     position: absolute;
 }
 
-.card-list {
-    width                : 70%;
-    display              : grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-gap             : 4em
-}
+.navbar-text-gradient {
+    font-size: 42px; /* Ajustez à votre convenance */
+    background: linear-gradient(to right, rgb(247, 4, 145), rgb(85, 3, 85));
+    font-weight: bold;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-.card,
-.card-body,
-.card-footer {
-    display       : flex;
-    flex-direction: column;
-    align-items   : center;
-}
-
-.card {
-    border-radius: 18px;
-    background   : #fff;
-    box-shadow   : 4px 4px 25px rgba(0, 0, 0, 0.4);
-    overflow     : hidden;
-    cursor       : pointer;
-    transition   : transform 0.4s;
-}
-
-.card:hover {
-    transform : scale(1.05);
-    box-shadow: 4px 4px 25px rgba(0, 0, 0, 0.2);
-}
-
-.card-image {
-    display  : block;
-    position : relative;
-    height   : 180px;
-    max-width: 100%;
-}
-
-.card-image img {
-    max-height     : 100%;
-    width          : 100%;
-    background-size: cover;
-}
-
-.card-body {
-    padding: 20px 28px;
-}
-
-.card-body .date {
-    font-weight: bolder;
-}
-
-.card-body h2 {
-    font-size: 1.8em;
-    margin   : 2px auto 12px;
-}
-
-.card-body p {
-    color      : gray;
-    font-size  : 1.1em;
-    line-height: 22px;
-    text-align : center;
-}
-
-.card-footer {
-    width                : 100%;
-    display              : grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.card-footer .info {
-    font-size     : 0.9em;
-    padding       : 10px;
-    color         : #fff;
-    display       : flex;
-    align-items   : center;
-    flex-direction: column;
-    border-right  : 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.card-footer .info:last-child {
-    border: none;
-}
-
-.card-footer .info .type {
-    text-transform: uppercase;
-    margin-top    : 2px;
-    font-size     : 0.8em;
-}
-
-.card:nth-child(1) .card-footer {
-    background: #ff0c71;
-}
-
-.card:nth-child(1) .date {
-    color: #ff0c71;
-}
-
-.card:nth-child(2) .card-footer {
-    background: #ff510c;
-}
-
-.card:nth-child(2) .date {
-    color: #ff510c;
-}
-
-.card:nth-child(3) .card-footer {
-    background: #03b43e;
-}
-
-.card:nth-child(3) .date {
-    color: #03b43e;
-}
+  .navbar-text-gradient-user-menu {
+    font-size: 14px; /* Ajustez à votre convenance */
+    background: linear-gradient(to right, rgb(247, 4, 145), rgb(85, 3, 85));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }

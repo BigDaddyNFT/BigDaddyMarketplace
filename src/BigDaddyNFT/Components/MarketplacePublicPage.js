@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import '../BigDaddyMarketplaceCSS.css';
+import '@coreui/coreui/dist/css/coreui.min.css';
 import { useBigDaddyMarketplaceContext } from '../Provider/BigDaddyMarketplaceContext.jsx';
+import { CNavbar, CNavbarBrand, CNavbarText, CNavbarNav, CNavItem, CNavLink,CContainer, CFormLabel, CCarousel, CCarouselItem, CImage, CCard, CCardImage, CCardBody, CCardText, CButton, CCardTitle, CCardSubtitle, CRow, CCol, CModal, CModalBody, CModalHeader, CModalTitle, CModalFooter } from '@coreui/react';
 
 
 
 const Card = ({ template }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { bigDaddyMarketplaceErrorMessage, 
-          isBigDaddyMarketplaceLoading, 
-          isBigDaddyMarketplaceErrorModalOpen,
-          closeBigDaddyMarketplaceErrorModal,
-          handleBuyBigDaddyMarketplaceNFT, 
-          isLoggedIn, 
-          redirectToNFTPortal } = useBigDaddyMarketplaceContext();
+  const { bigDaddyMarketplaceErrorMessage,
+    isBigDaddyMarketplaceLoading,
+    isBigDaddyMarketplaceErrorModalOpen,
+    closeBigDaddyMarketplaceErrorModal,
+    handleBuyBigDaddyMarketplaceNFT,
+    isLoggedIn,
+    redirectToNFTPortal } = useBigDaddyMarketplaceContext();
 
   const handleBuy = () => {
     if (isLoggedIn) {
@@ -48,7 +49,7 @@ const Card = ({ template }) => {
 
   return (
     <div>
-    <div>
+      <div>
         {isBigDaddyMarketplaceLoading ? (
           <div style={BigDaddyMarketplaceLoadingStyle}>
             <div className="waviy">
@@ -80,55 +81,88 @@ const Card = ({ template }) => {
 
       </div>
 
-      <div className="card" onClick={openModal}>
-        <div className="card-image">
-          <img src={template.miniatureURL} alt="London trip" width={"300px"} height={"150px"}/>
-        </div>
-        <div className="card-body">
-          <span className="date">{template.price} FUSD</span>
-          <h2>{template.name}</h2>
-          <p>{template.description}</p>
-        </div>
-        <div class="card-footer">
-          <h4 >Details</h4>
-        </div>
-      </div>
+      < CCard style={{ width: '18rem' }} className="h-100 mb-3 border-light text-center" textColor="black">
+        <CCardImage orientation="top" src={template.miniatureURL} />
+        <CCardBody>
+          <CCardTitle>{template.name}</CCardTitle>
+          <CCardSubtitle className="mb-2 text-medium-emphasis">{template.price} FUSD</CCardSubtitle>
+          <CCardText>
+            {template.description}
+          </CCardText>
+          <CButton CButton color="light" onClick={openModal}>Details</CButton>
+        </CCardBody>
+      </CCard>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Website Template"
-      >
-        <h2>{template.name}</h2>
-        <img src={template.picture1Url} alt="Image 1" width={"600px"} height={"300px"}/>
-        <img src={template.picture2Url} alt="Image 2" width={"600px"} height={"300px"}/>
-        <img src={template.picture3Url} alt="Image 3" width={"600px"} height={"300px"}/>
-        <p>Video: {template.videoUrl}</p>
-        <p>Creator website: {template.creatorwebsiteUrl}</p>
-        <p>Demo website: {template.demowebsiteUrl}</p>
-        <p>Description: {template.description}</p>
-        <p>Price: {template.price} FUSD</p>
-        <button className="glow-on-hover" onClick={handleBuy}>Buy Website</button>
-        <button onClick={closeModal} className="modal__close">&times;</button>
-      </Modal>
+      <CModal size="lg" visible={modalIsOpen} onClose={() => closeModal()}>
+        <CModalHeader onClose={() => closeModal()}>
+          <CModalTitle>{template.name}</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CCarousel controls indicators>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={template.picture1Url} alt="slide 1" />
+            </CCarouselItem>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={template.picture2Url} alt="slide 2" />
+            </CCarouselItem>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={template.picture3Url} alt="slide 3" />
+            </CCarouselItem>
+          </CCarousel>
+          <CContainer>
+          <CRow className="mb-3" xs={{ gutterX: 5 }}>
+            <CFormLabel className="col-sm-2 col-form-label" style={{color: 'purple'}}>Video</CFormLabel>
+            <CCol sm={10} className="mx-3">
+              <a href={template.videoUrl} target="_blank" rel="noopener noreferrer">{template.videoUrl}</a>
+            </CCol>
+          </CRow>
+          <CRow className="mb-3" xs={{ gutterX: 5 }}>
+          <CFormLabel className="col-sm-2 col-form-label" style={{color: 'purple'}}>Creator Website</CFormLabel>
+            <CCol sm={10} className="mx-3">
+              <a href={template.creatorwebsiteUrl} target="_blank" rel="noopener noreferrer">{template.creatorwebsiteUrl}</a>
+            </CCol>
+          </CRow>
+          <CRow className="mb-3" xs={{ gutterX: 5 }}>
+          <CFormLabel className="col-sm-2 col-form-label" style={{color: 'purple'}}>Demo Website</CFormLabel>
+            <CCol sm={10} className="mx-3">
+              <a href={template.demowebsiteUrl} target="_blank" rel="noopener noreferrer">{template.demowebsiteUrl}</a>
+            </CCol>
+          </CRow>
+          <CRow className="mb-3" xs={{ gutterX: 5 }}>
+          <CFormLabel className="col-sm-2 col-form-label" style={{color: 'purple'}}>Description</CFormLabel>
+            <CCol sm={10} className="mx-3">
+            {template.description}
+            </CCol>
+          </CRow>
+          <CRow className="mb-3" xs={{ gutterX: 5 }}>
+          <CFormLabel className="col-sm-2 col-form-label" style={{color: 'purple'}}>Price</CFormLabel>
+            <CCol sm={10} className="mx-3">
+            {template.price} FUSD
+            </CCol>
+          </CRow>
+          </CContainer>
+        </CModalBody>
+        <CModalFooter>
+          <button className="bigdaddy-button" onClick={handleBuy}>Buy Website</button>
+        </CModalFooter>
+      </CModal>
+
+
     </div>
   );
 };
 
 const MarketplacePublicPage = () => {
-  const { bigDaddyMarketplaceTemplates , redirectToNFTPortal} = useBigDaddyMarketplaceContext();
+  const { bigDaddyMarketplaceTemplates } = useBigDaddyMarketplaceContext();
 
   return (
-    <div className="BigDaddyMarketplaceContainer">
-      <img src={"/bigdaddymarketplace/logo-4.png"} width={"300px"} height={"150px"} />
-      <h1>BigDaddy Marketplace</h1>
-      <button onClick={redirectToNFTPortal} className="glow-on-hover logout">Go to my Profile Page</button>
-      <div className="card-list">
+      <CRow xs={{ cols: 1 }} md={{ cols: 3 }} className="g-4 m-5">
         {Object.values(bigDaddyMarketplaceTemplates).map((template) => (
-          <Card key={template.templateID} template={template} />
+          <CCol xs>
+            <Card key={template.templateID} template={template} />
+          </CCol>
         ))}
-      </div>
-    </div>
+      </CRow>
   )
 };
 
